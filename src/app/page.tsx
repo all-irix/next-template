@@ -14,7 +14,7 @@ const HomePage = async () => {
       <header className="w-full border-b">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="font-mono text-lg font-bold">
-            next-starter
+            next-template
           </Link>
           <div className="flex items-center gap-2">
             <AuthControls session={session} />
@@ -55,13 +55,7 @@ const HomePage = async () => {
         </div>
       </section>
       <footer className="text-muted-foreground absolute bottom-3 w-full text-center text-sm">
-        © {new Date().getFullYear()} By{" "}
-        <Link
-          href="https://michalskolak.pl"
-          className={buttonVariants({ variant: "link", className: "!p-0" })}
-        >
-          Michał Skolak
-        </Link>
+        © {new Date().getFullYear()} By David Hampton
       </footer>
     </>
   );
