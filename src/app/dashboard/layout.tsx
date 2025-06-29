@@ -1,14 +1,12 @@
 import "@/styles/globals.css";
 
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 
-import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { fonts } from "@/lib/fonts";
+import { LayoutShell } from "@/components/layout/layout-shell";
+import { auth } from "@/lib/auth";
 import { siteConfig } from "@/lib/site-config";
-import { cn } from "@/lib/utils";
-import { PreferencesProvider } from "@/hooks/use-preferences";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -43,20 +41,11 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({ children }: PropsWithChildren) => {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-screen font-sans", fonts)}>
-        <PreferencesProvider>
-          {" "}
-          <ThemeProvider attribute="class">
-            {children}
-            <ThemeSwitcher className="absolute right-5 bottom-5 z-10" />
-          </ThemeProvider>
-        </PreferencesProvider>
-      </body>
-    </html>
-  );
+const DashboardLayout = async ({ children }: PropsWithChildren) => {
+  const session = await auth();
+
+  if (!session) redirect("/login");
+  return <LayoutShell>{children}</LayoutShell>;
 };
 
-export default RootLayout;
+export default DashboardLayout;

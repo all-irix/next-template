@@ -1,7 +1,9 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { eq } from "drizzle-orm";
 import NextAuth from "next-auth";
+import FacebookProvider from "next-auth/providers/facebook";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 import { env } from "@/env.mjs";
 import { db, users } from "@/lib/schema";
@@ -13,6 +15,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     GitHubProvider({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
+    }),
+    GoogleProvider({
+      clientId: env.GOOGLE_ID,
+      clientSecret: env.GOOGLE_SECRET,
+    }),
+    FacebookProvider({
+      clientId: env.FACEBOOK_ID,
+      clientSecret: env.FACEBOOK_SECRET,
     }),
   ],
   callbacks: {
